@@ -1,22 +1,10 @@
-const { test, expect } = require('@playwright/test');
-test('Home page', async ({ page }) => {
+const { expect, test } = require('@playwright/test');
 
+test('Getlinks', async ({ page }) => {
     await page.goto('https://www.demoblaze.com/index.html');
-    const pageTtilr = await page.title();
-    console.log(pageTtilr);
-    await expect(page).toHaveTitle('STORE');
-
-    const pageurl = await page.url();
-    await expect(page).toHaveURL('https://www.demoblaze.com/index.html');
-    console.log(pageurl)
-    await page.close();
-
-
-
-
-
-}
-
-
-)
-
+    const allLinks = await page.$$('a');
+    for (const links of allLinks) {
+        const linktext = await links.textContent();
+        console.log(linktext);
+    }
+})
